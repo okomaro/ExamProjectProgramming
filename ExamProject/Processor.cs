@@ -10,7 +10,7 @@ namespace ExamProject
 
         internal void Process()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Program completed");
         }
     }
 }

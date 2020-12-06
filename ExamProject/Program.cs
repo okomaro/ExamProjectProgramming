@@ -8,6 +8,9 @@ namespace ExamProject
         {
             Console.WriteLine("Hello Team!!!!");
             Console.WriteLine("Does it work?");
+        
+            var process = new Processor();
+                process.Process();
         }
     }
 }
