@@ -14,7 +14,9 @@ namespace ExamProject
         public void EntrySystem()
         {
             DisplayMainMenu();
-            int choice = int.Parse(Console.ReadLine());
+  int choice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
+
+        
             RoleAccess(choice);
         }
 
@@ -25,40 +27,43 @@ namespace ExamProject
 
         private void RoleAccess(int choice)
         {
-
-            switch (choice)
+            if (AuthenticateUser() == true)
             {
-                case 1:
+                switch (choice)
+                {
+                    case 1:
 
-                    if (AuthenticateUser() == true)
-                    {
                         var lawer = new Database.Lawer();
                         Console.WriteLine("Lawer tested");
-                    }
+                        break;
 
-                    break;
+                    case 2:
 
-                case 2:
-                    if (AuthenticateUser() == true)
-                    {
                         var admin = new Database.Administration();
                         Console.WriteLine("Admin tested");
-                    }
-                    break;
+
+                        break;
 
 
-                case 3:
-                    if (AuthenticateUser() == true)
-                    {
+                    case 3:
                         var receptionist = new Database.Reception();
                         Console.WriteLine("Reception tested");
-                    }
-                    break;
+
+                        break;
 
 
-                default:
-                    Console.WriteLine("Please make your choice!");
-                    break;
+                    default:
+                        Console.WriteLine("Please make your choice!");
+                        break;
+                }
+
+
+            }
+
+            else
+            {
+                Console.WriteLine("Incorrect user or password. \nTry again!");
+                AuthenticateUser();
             }
         }
 
