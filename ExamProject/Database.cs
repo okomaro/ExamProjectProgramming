@@ -3,7 +3,6 @@ namespace ExamProject
 {
     public class Database
     {
-
         //general info about every person:
         //Id, Firstname, Lastname, DOB, JoinedOn
         public abstract class Person
@@ -25,6 +24,7 @@ namespace ExamProject
         {
             public ESeniority Seniority { get; set; }
             public ECaseType Expertise { get; set; }
+
         }
 
 

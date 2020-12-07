@@ -14,7 +14,17 @@ namespace ExamProject
         {
             DisplayMainMenu();
             int choice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
-            RoleAccess(choice);
+            if (AuthenticateUser() == true)
+            {
+                ShowMenuOption(choice);
+                int selected = Int32.Parse(Console.ReadLine());
+                Console.WriteLine($"This is what is selected {selected }"); //temporary line for testing
+            }
+            else
+            {
+                Console.WriteLine("Incorrect user or password. \nTry again!");
+                DisplayMainMenu();
+            }
         }
 
         private void DisplayMainMenu()
@@ -22,49 +32,9 @@ namespace ExamProject
             Console.WriteLine("Who are you\nChoose type\n1. Lawer\n2. Administration\n3. Receptionist");
         }
 
-        private void RoleAccess(int choice)
-        {
-            if (AuthenticateUser() == true)
-            {
-                switch (choice)
-                {
-                    case 1:
-                        var lawer = new Database.Lawer();
-                        Console.WriteLine("Lawer tested");
-                        break;
-
-                    case 2:
-
-                        var admin = new Database.Administration();
-                        Console.WriteLine("Admin tested");
-
-                        break;
 
 
-                    case 3:
-                        var receptionist = new Database.Reception();
-                        Console.WriteLine("Reception tested");
-
-                        break;
-
-
-                    default:
-                        Console.WriteLine("Please make your choice!");
-                        break;
-                }
-
-
-            }
-
-            else
-            {
-                Console.WriteLine("Incorrect user or password. \nTry again!");
-                AuthenticateUser();
-            }
-        }
-
-
-        // method to validate the user
+        // method to validate the user login
         private bool AuthenticateUser()
         {
             //prompting for the entries
@@ -85,7 +55,32 @@ namespace ExamProject
 
         }
 
+        //menu option depending on access role
 
+        private void ShowMenuOption(int choice)
+        {
+
+
+            switch (choice)
+            {
+                case 1:
+                    Console.WriteLine("Choose action (lawer)\n1. List all cases\n2. Add a new Case\n3. List all Appointements");
+                    break;
+
+                case 2:
+                    Console.WriteLine("Choose action (admin)\n1. List all cases\n2. List all Appointements");
+                    break;
+
+                case 3:
+                    Console.WriteLine("Choose action (Receptionist)\n1. Register a new client\n2. Add a new Appointemnt\n3.List all Appointments\n4.List all Clients");
+
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid command");
+                    return;
+            }
+        }
 
     } //end of class Processor
 
