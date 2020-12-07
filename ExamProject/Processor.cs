@@ -5,7 +5,6 @@ namespace ExamProject
 {
     public class Processor
     {
-
         //creating list db to store all info about human resources and clients, as well as their appointments in one list
 
         List<Database> db = new List<Database>();
@@ -14,9 +13,7 @@ namespace ExamProject
         public void EntrySystem()
         {
             DisplayMainMenu();
-  int choice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
-
-        
+            int choice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
             RoleAccess(choice);
         }
 
@@ -32,7 +29,6 @@ namespace ExamProject
                 switch (choice)
                 {
                     case 1:
-
                         var lawer = new Database.Lawer();
                         Console.WriteLine("Lawer tested");
                         break;
@@ -72,7 +68,7 @@ namespace ExamProject
         private bool AuthenticateUser()
         {
             //prompting for the entries
-            Console.WriteLine("Please provide username to access the LegalX system");
+            Console.WriteLine($"You are entering LegalX system!\nPlease provide your username:");
             string usernameInput = Console.ReadLine();
 
             Console.WriteLine("Please provide your password");
