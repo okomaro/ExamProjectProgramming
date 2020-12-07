@@ -6,11 +6,13 @@ namespace ExamProject
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello dear Amanda and Nacho!!!!");
-            Console.WriteLine("Does it work?");
-        
-            var process = new Processor();
-                process.Process();
+
+            Console.WriteLine("Welcome to LegalX!");
+
+            Processor p = new Processor();
+               p.EntrySystem() ;
+            
         }
     }
 }
+
