@@ -10,21 +10,33 @@ namespace ExamProject
 
         //creating list db to store all info about human resources and clients, as well as their appointments in one list
 
+        //id system 1-30 lawers
+        //30-35 administration and reception
+
         List<Lawer> lawers = new List<Lawer>() {
         new Lawer{Id = 1, Firstname = "Ivan", Lastname = "Ivanoff", Seniority = ESeniority.Senior, Expertise = ECaseType.CriminalCase, DOB = DateTime.ParseExact("09-09-1978","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-1978","dd-MM-yyyy", null)
 
         },
-        new Lawer{Id = 2, Firstname = "Olga", Lastname = "Komarova", Seniority = ESeniority.Senior, Expertise = ECaseType.CriminalCase, 
+         new Lawer{Id = 2, Firstname = "Ignacio", Lastname = "rfr", Seniority= ESeniority.Junior, Expertise = ECaseType.FamilyCase, DOB = DateTime.ParseExact("03-06-1988","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-2020","dd-MM-yyyy", null)
+
+        },
+        new Lawer{Id = 3, Firstname = "Olga", Lastname = "Komarova", Seniority = ESeniority.Senior, Expertise = ECaseType.CriminalCase, 
         }
         };
 
         List<Administration> admins = new List<Administration>() {
-        new Administration{ Id = 3, Firstname = "Mette", Lastname = "Jensen"},
+        new Administration{ Id = 3, Firstname = "Mette", Lastname = "Jensen", DOB = DateTime.ParseExact("08-03-1999","dd-MM-yyyy", null)},
         new Administration{ Id = 4, Firstname = "Jack", Lastname = "Hansen"},
         };
 
+        List<Reception> receptionists = new List<Reception>() {
+        new Reception{ Id = 3, Firstname = "Mette", Lastname = "Jensen", DOB = DateTime.ParseExact("08-03-1999","dd-MM-yyyy", null)},
+        new Reception{ Id = 4, Firstname = "Jack", Lastname = "Hansen"},
+        };
 
-        List<Client> cients = new List<Client>() {
+
+
+        List<Client> clients = new List<Client>() {
         new Client{ Id = 3, Firstname = "Jan", Lastname = "Holm", City = "Copenhagen", CaseType = ECaseType.FamilyCase, Street = "Svanemoelevej", Zip = 2100}
 
         };
