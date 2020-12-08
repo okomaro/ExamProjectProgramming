@@ -41,7 +41,7 @@ namespace ExamProject
 
 
         List<Client> clients = new List<Client>() {
-        new Client{ Id = 3, Firstname = "Jan", Lastname = "Holm", City = "Copenhagen", CaseType = ECaseType.Family, Street = "Svanemoelevej", Zip = 2100}
+        new Client{ ClientId = 3, Firstname = "Jan", Lastname = "Holm", City = "Copenhagen", CaseType = ECaseType.Family, Street = "Svanemoelevej", Zip = 2100, DOB = DateTime.ParseExact("03-06-1988","dd-MM-yyyy", null) }
 
         };
 
@@ -94,7 +94,7 @@ namespace ExamProject
         //initial menu
         private void DisplayMainMenu()
         {
-            Console.WriteLine("Who are you:");
+            Console.WriteLine("Your role in the LegalX company:");
             Console.WriteLine("1. Lawer");
             Console.WriteLine("2. Administrator");
             Console.WriteLine("3. Receptionist");
@@ -159,14 +159,15 @@ namespace ExamProject
         public void AddNewClient()
         {
             Client client = new Client();
-            Console.WriteLine("Step 1. Creating new client");
+            Console.WriteLine("Creating new client");
             Console.WriteLine("Client ID:");
-            client.Id = int.Parse(Console.ReadLine());
+            client.ClientId = int.Parse(Console.ReadLine());
             Console.WriteLine("First name:");
             client.Firstname = Console.ReadLine();
             Console.WriteLine("Last name:");
             client.Lastname = Console.ReadLine();
             Console.WriteLine("Date of birth (in format dd-MM-yyyy):");
+
             client.DOB = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
             Console.WriteLine("City:");
             client.City = Console.ReadLine();
@@ -188,7 +189,6 @@ namespace ExamProject
             clients.Add(client);
             Console.WriteLine("New client's record is created");
             Console.WriteLine(client.ShowInfo());
-
         }
 
         public void ListAllClients()
@@ -235,7 +235,43 @@ namespace ExamProject
         private void AddNewAppointment()
         {
             Appointment appointment  = new Appointment();
-            Console.WriteLine("Tested: appointment created");
+
+            Console.WriteLine("Creating new appointment");
+
+            Console.WriteLine("Existing Client? (Y or N)");
+            string answer = Console.ReadLine().ToLower();
+            if (answer == "y")
+            {
+                Console.WriteLine("Enter Client's ID:");
+                appointment.ClientId = int.Parse(Console.ReadLine());
+                Console.WriteLine("Appointment ID:");
+                appointment.AppId = int.Parse(Console.ReadLine());
+                Console.WriteLine("Appointment's date:");
+                appointment.AppointmentDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
+                Console.WriteLine("Enter Lawers's ID:");
+                appointment.LawyerId = int.Parse(Console.ReadLine());
+                Console.WriteLine("Choose room:");
+                Console.WriteLine("1. Aquarium\n2. Cave\n3. Cube");
+                int roomChoice = int.Parse(Console.ReadLine());
+                if (roomChoice == 1)
+                    appointment.MeetingRoom = ERooms.Aquarium;
+                else if (roomChoice == 2)
+                    appointment.MeetingRoom = ERooms.Cave;
+                else if (roomChoice == 3)
+                    appointment.MeetingRoom = ERooms.Cube;
+                else
+                    appointment.MeetingRoom = ERooms.Unknown;
+
+                appointments.Add(appointment);
+                Console.WriteLine("New appointment is created");
+
+                Console.WriteLine(appointment.ShowInfo());
+
+            }
+
+            else { AddNewClient(); }
+       
+
         }
 
 
