@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ExamProject
 {
@@ -15,7 +16,9 @@ namespace ExamProject
             public DateTime DOB { get; set; }
             public DateTime JoinedOn { get; set; }
 
-        }
+        public abstract string ShowInfo();
+
+    }
 
 
         //Inherited classes
@@ -28,7 +31,17 @@ namespace ExamProject
             public ESeniority Seniority { get; set; }
             public ECaseType Expertise { get; set; }
 
+        public override string ShowInfo()
+        {
+            StringBuilder textResult = new StringBuilder();
+          textResult.AppendLine($"*** Lawer Id: {Id} ***");
+            textResult.AppendLine($"Name: {Firstname} {Lastname}");
+            textResult.AppendLine($"Seniority: {Seniority} level");
+            textResult.AppendLine($"Expertise: {Expertise} law");
+
+            return textResult.ToString();
         }
+    }
 
        
 
@@ -38,29 +51,54 @@ namespace ExamProject
         public class Administration : Person
         {
             public ERole Role { get; set; }
-        }
 
-
-        // Receptionist: child class 
-        public class Reception : Person
+        public override string ShowInfo()
         {
-
+            throw new NotImplementedException();
         }
+    }
+
+
+    // Receptionist: child class 
+    public class Reception : Person
+    {
+        public override string ShowInfo()
+        {
+            StringBuilder textResult = new StringBuilder();
+            textResult.AppendLine($"*** Receptionist Id: {Id} ***");
+            textResult.AppendLine($"Id: {Id}");
+            textResult.AppendLine($"Name: {Firstname} {Lastname}");     
+            textResult.AppendLine($"Dob: {DOB.ToString("dd/MM/yyyy")}");
+
+            return textResult.ToString();
+        }
+    }
 
 
 
-        // Client: child class
-        //specific info about a client:
-        //CaseType, Street, Zip, City
+    // Client: child class
+    //specific info about a client:
+    //CaseType, Street, Zip, City
 
-        public class Client : Person
+    public class Client : Person
         {
             public string Street { get; set; }
             public string City { get; set; }
             public int Zip { get; set; }
             public ECaseType CaseType { get; set; }
 
+        public override string ShowInfo()
+        {
+            StringBuilder textResult = new StringBuilder();
+            textResult.AppendLine($"*** Client Id: {Id} ***");
+            textResult.AppendLine($"Name: {Firstname} {Lastname}, born { DOB.ToString("dd/MM/yyyy")}");
+            textResult.AppendLine($"Adress: {Street}, {City}, {Zip}");
+            textResult.AppendLine($"Case type: {CaseType} law");
+            textResult.AppendLine("*** ******** ***");
+
+            return textResult.ToString();
         }
+    }
 
 
 

@@ -13,7 +13,7 @@ namespace ExamProject
 
     public enum ECaseType
     {
-        Unknown = 0, Corporate = 1, FamilyCase = 2, CriminalCase = 3
+        Unknown = 0, Corporate = 1, Family = 2, Criminal = 3
     }
 
     public enum ERooms
