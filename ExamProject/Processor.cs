@@ -8,12 +8,15 @@ namespace ExamProject
     public class Processor
     {
 
-        //creating list db to store all info about human resources and clients, as well as their appointments in one list
+        //lists to store all info about human resources and clients, as well as their appointments in one list
 
         //id system
         //1-30 lawers
         //30-35 administration and reception
 
+        //***************************
+        //     DATA ON RESOURSES
+        //***************************
 
         List<Lawer> lawers = new List<Lawer>() {
         new Lawer{Id = 1, Firstname = "Ivan", Lastname = "Ivanoff", Seniority = ESeniority.Senior, Expertise = ECaseType.Criminal, DOB = DateTime.ParseExact("09-09-1978","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-1978","dd-MM-yyyy", null)
@@ -42,11 +45,20 @@ namespace ExamProject
 
         };
 
+
+        //***************************
+        //    DATA ON OPERATIONS
+        //***************************
+
         List<Appointment> appointments = new List<Appointment>();
+        List<Case> cases = new List<Case>();
 
 
+        //***************************
+        //    ROLES AND LOGIN
+        //***************************
 
-        //first method activated from Program.cs
+        // the first method activated from Program.cs
         public void EntrySystem()
         {
             DisplayMainMenu();
@@ -55,16 +67,12 @@ namespace ExamProject
             if (AuthenticateUser())  //same as ==true
             {
                 ShowMenuOption(choice);
-                int selected = Int32.Parse(Console.ReadLine());
-                Console.WriteLine($"This is what is selected {selected }"); //temporary line for testing
             }
             else
             {
                 Console.WriteLine("Incorrect user or password. \nTry again!");
-                DisplayMainMenu();
             }
         }
-
 
 
         // method to validate the user login
@@ -83,19 +91,21 @@ namespace ExamProject
         }
 
 
-
         //initial menu
         private void DisplayMainMenu()
         {
             Console.WriteLine("Who are you:");
             Console.WriteLine("1. Lawer");
-            Console.WriteLine("2. Administration");
+            Console.WriteLine("2. Administrator");
             Console.WriteLine("3. Receptionist");
         }
 
 
+        //************************
+        //      MAIN NAVIGATION
+        // menu options depending on role
+        //************************
 
-        //menu options depending on access role
         private void ShowMenuOption(int choice)
         {
             while (true)
@@ -104,21 +114,32 @@ namespace ExamProject
                 {
                     case 1:
                         Console.WriteLine("Choose action (lawer)\n1. List all cases\n2. Add a new Case\n3. List all Appointements");
+                        int lawerChoice  = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
+                        if (lawerChoice == 1) { ListAllCases(); }
+                        else if (lawerChoice == 2) { AddNewCase(); }
+                        else if (lawerChoice == 3) { ListAllApppointments(); }
+                        else { break; }
                         Console.ReadKey();
-                        AddNewClient();
-
                         break;
 
                     case 2:
                         Console.WriteLine("Choose action (admin)\n1. List all cases\n2. List all Appointements");
+                        int adminChoice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
+                        if (adminChoice == 1) { ListAllCases(); }
+                        else if (adminChoice == 2) { ListAllApppointments(); }
+                        else { break; }
                         Console.ReadKey();
-                        ListClients();
                         break;
 
                     case 3:
-                        Console.WriteLine("Choose action (Receptionist)\n1. Register a new client\n2. Add a new Appointemnt\n3.List all Appointments\n4.List all Clients");
+                        Console.WriteLine("Choose action (Receptionist)\n1. Register a new client\n2. Add a new Appointemnt\n3. List all Appointments\n4. List all Clients");
+                        int receptionChoice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
+                        if (receptionChoice == 1) { AddNewClient(); }
+                        else if (receptionChoice == 2) { AddNewAppointment(); }
+                        else if (receptionChoice == 3) { ListAllApppointments(); }
+                        else if (receptionChoice == 4) { ListAllClients(); }
+                        else { break; }
                         Console.ReadKey();
-                        ListLawers();
                         break;
 
                     default:
@@ -128,6 +149,9 @@ namespace ExamProject
             }
 
         }
+
+      
+
         //**********************
         //       METHODS
         //**********************
@@ -167,7 +191,7 @@ namespace ExamProject
 
         }
 
-        public void ListClients()
+        public void ListAllClients()
         {
             foreach (Client c in clients)
             {
@@ -175,7 +199,6 @@ namespace ExamProject
             }
 
         }
-
 
         public void ListLawers()
         {
@@ -186,7 +209,34 @@ namespace ExamProject
 
         }
 
+        private void ListAllApppointments()
+        {
+            foreach (Appointment c in appointments)
+            {
+                Console.WriteLine(c.ShowInfo());
+            }
+        }
 
+        private void AddNewCase()
+        {
+          
+            Console.WriteLine("Tested: case created");
+        }
+
+        private void ListAllCases()
+        {
+
+            foreach (Case c in cases)
+            {
+                Console.WriteLine(c.ShowInfo());
+            }
+        }
+
+        private void AddNewAppointment()
+        {
+            Appointment appointment  = new Appointment();
+            Console.WriteLine("Tested: appointment created");
+        }
 
 
         //public List<Database> AddNewAppointment()
