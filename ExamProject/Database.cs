@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ExamProject
 {
     public class Database
     {
         //general info about every person:
         //Id, Firstname, Lastname, DOB, JoinedOn
+
         public abstract class Person
         {
             public int Id { get; set; }
@@ -12,6 +15,7 @@ namespace ExamProject
             public string Lastname { get; set; }
             public DateTime DOB { get; set; }
             public DateTime JoinedOn { get; set; }
+
         }
 
 
@@ -27,7 +31,7 @@ namespace ExamProject
 
         }
 
-
+       
 
         // Administration: child class 
         // additional info: role in the company
@@ -36,6 +40,7 @@ namespace ExamProject
         {
             public ERole Role { get; set; }
         }
+
 
         // Receptionist: child class 
         public class Reception : Person
@@ -89,5 +94,11 @@ namespace ExamProject
 
         }
 
+
+
     }
+
+    
+
+
 }
