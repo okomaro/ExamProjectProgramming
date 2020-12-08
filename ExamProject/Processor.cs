@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using static ExamProject.Database;
+
 
 namespace ExamProject
 {
@@ -10,8 +10,10 @@ namespace ExamProject
 
         //creating list db to store all info about human resources and clients, as well as their appointments in one list
 
-        //id system 1-30 lawers
+        //id system
+        //1-30 lawers
         //30-35 administration and reception
+
 
         List<Lawer> lawers = new List<Lawer>() {
         new Lawer{Id = 1, Firstname = "Ivan", Lastname = "Ivanoff", Seniority = ESeniority.Senior, Expertise = ECaseType.CriminalCase, DOB = DateTime.ParseExact("09-09-1978","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-1978","dd-MM-yyyy", null)

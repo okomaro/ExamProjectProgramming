@@ -3,8 +3,7 @@ using System.Collections.Generic;
 
 namespace ExamProject
 {
-    public class Database
-    {
+ 
         //general info about every person:
         //Id, Firstname, Lastname, DOB, JoinedOn
 
@@ -94,11 +93,6 @@ namespace ExamProject
 
         }
 
-
-
-    }
-
-    
 
 
 }
