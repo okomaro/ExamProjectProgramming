@@ -6,12 +6,27 @@ namespace ExamProject
     {
         public static void Main(string[] args)
         {
+            try
+            {
+                Console.WriteLine("Welcome to LegalX!");
+                Processor p = new Processor();
+                p.EntrySystem();
+            }
 
-            Console.WriteLine("Welcome to LegalX!");
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception: {0}", ex.Message);
+                Console.WriteLine("Press any key to start the system again");
+                Console.ReadKey();
+            }
 
-            Processor p = new Processor();
-               p.EntrySystem();
-
+            finally
+            {
+                Console.WriteLine("Welcome to LegalX!");
+                Processor p = new Processor();
+                p.EntrySystem();
+            }
+         
         }
     }
 }

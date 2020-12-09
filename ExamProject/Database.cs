@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
+
 using System.Text;
+
 
 namespace ExamProject
 {
@@ -34,7 +35,7 @@ namespace ExamProject
         public override string ShowInfo()
         {
             StringBuilder textResult = new StringBuilder();
-            textResult.AppendLine($"*** Lawyer Id: {EmpId} ***");
+            textResult.AppendLine($"*** Lawyer's Id: {EmpId} ***");
             textResult.AppendLine($"Name: {Firstname} {Lastname}");
             textResult.AppendLine($"Seniority: {Seniority} level");
             textResult.AppendLine($"Expertise: {Expertise} law");
@@ -64,7 +65,7 @@ namespace ExamProject
         public override string ShowInfo()
         {
             StringBuilder textResult = new StringBuilder();
-            textResult.AppendLine($"*** Receptionist Id: {EmpId} ***");
+            textResult.AppendLine($"*** Receptionist's Id: {EmpId} ***");
             textResult.AppendLine($"Name: {Firstname} {Lastname}");
             textResult.AppendLine($"Dob: {DOB.ToShortDateString()}");
             return textResult.ToString();
@@ -91,12 +92,20 @@ namespace ExamProject
         public virtual string ShowInfo()
         {
             StringBuilder textResult = new StringBuilder();
-            textResult.AppendLine($"*** Client Id: {ClientId} ***");
+            textResult.AppendLine($"*** Client's Id: {ClientId} ***");
             textResult.AppendLine($"Name: {Firstname} {Lastname}, born { DOB.ToString("dd/MM/yyyy")}");
             textResult.AppendLine($"Adress: {Street}, {City}, {Zip}");
             textResult.AppendLine($"Case type: {CaseType} law");
             textResult.AppendLine("*** ******** ***");
 
+            return textResult.ToString();
+        }
+
+
+        public virtual string ShowShortInfo()
+        {
+            StringBuilder textResult = new StringBuilder();
+            textResult.AppendLine($"{Firstname} {Lastname} Id: {ClientId} Case type: {CaseType} law");
             return textResult.ToString();
         }
     }
@@ -111,6 +120,7 @@ namespace ExamProject
     {
         public int AppId { get; set; }
         public DateTime AppointmentDate { get; set; }
+        public DateTime AppointmentTime { get; set; }
         public ERooms MeetingRoom { get; set; }
         public int ClientId { get ; set ; }
         public int LawyerId { get; set; }
@@ -120,6 +130,7 @@ namespace ExamProject
             StringBuilder textResult = new StringBuilder();
             textResult.AppendLine($"Appointment Id: {AppId}");
             textResult.AppendLine($"Date: {AppointmentDate.ToShortDateString()}");
+            textResult.AppendLine($"Time: {AppointmentTime.ToShortTimeString()}");
             textResult.AppendLine($"Room: {MeetingRoom}");
             textResult.AppendLine($"Lawer: {LawyerId}"); 
             textResult.AppendLine($"Client: {ClientId}"); 
@@ -152,14 +163,25 @@ namespace ExamProject
             StringBuilder textResult = new StringBuilder();
             textResult.AppendLine($"*** Case Id: {IdCase} ***");
             textResult.AppendLine($"Start Date: {StartDate.ToShortDateString()}");
-            textResult.AppendLine($"Total charges: {TotalCharges}");
-            textResult.AppendLine($"Lawyers ID: {LawyerId}");
-            textResult.AppendLine($"Clients ID: {ClientId}");
+            textResult.AppendLine($"Total charges: {TotalCharges.ToString("C")}");
+            textResult.AppendLine($"Lawyer's ID: {LawyerId}");
+            textResult.AppendLine($"Client's ID: {ClientId}");
             textResult.AppendLine("*** ******** ***");
 
             return textResult.ToString();
         }
-    }
 
+        public string ShowConnectedInfo()
+
+        {
+            StringBuilder textResult = new StringBuilder();
+
+ 
+
+            return textResult.ToString();
+
+        }
+
+    }
 
 }

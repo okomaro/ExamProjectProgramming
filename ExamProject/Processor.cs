@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
+using System.Linq;
 
 
 namespace ExamProject
@@ -15,11 +16,11 @@ namespace ExamProject
         //30-35 administration and reception
 
         //***************************
-        //     DATA ON RESOURSES
+        //        DATA LISTS
         //***************************
 
         List<Lawyer> lawyers = new List<Lawyer>() {
-        new Lawyer{EmpId = 1, Firstname = "Ivan", Lastname = "Ivanov", Seniority = ESeniority.Senior, Expertise = ECaseType.Criminal, DOB = DateTime.ParseExact("09-09-1978","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-1978","dd-MM-yyyy", null)
+        new Lawyer{EmpId = 1, Firstname = "Ivan", Lastname = "Ivanov", Seniority = ESeniority.Senior, Expertise = ECaseType.Family, DOB = DateTime.ParseExact("09-09-1978","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-1978","dd-MM-yyyy", null)
 
         },
          new Lawyer{EmpId = 2, Firstname = "Ignacio", Lastname = "Holm", Seniority= ESeniority.Junior, Expertise = ECaseType.Family, DOB = DateTime.ParseExact("03-06-1988","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-2020","dd-MM-yyyy", null)
@@ -50,32 +51,34 @@ namespace ExamProject
 
         };
 
-
-        //***************************
-        //    DATA LISTS FOR OPERATIONS
-        //***************************
-
         List<Appointment> appointments = new List<Appointment>();
-   
+
 
 
         //***************************
-        //    ROLES AND LOGIN
+        //    MENU AND LOGIN
         //***************************
 
         // the first method activated from Program.cs
         public void EntrySystem()
         {
-            DisplayMainMenu();
-            int choice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
+            while (true)
+            {
+                DisplayMainMenu();
+                int choice;
+                bool valid; //which is false by default
+                do { valid = int.TryParse(Console.ReadLine(), out choice); }
+                while (!valid);
 
-            if (AuthenticateUser())  //same as ==true
-            {
-                ShowMenuOption(choice);
-            }
-            else
-            {
-                Console.WriteLine("Incorrect user or password. \nTry again!");
+                if (AuthenticateUser())  //same as ==true
+                {
+                    ShowMenuOption(choice);
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect User or Password... Try again!");
+
+                }
             }
         }
 
@@ -84,11 +87,24 @@ namespace ExamProject
         private bool AuthenticateUser()
         {
             //prompting for the entries
-            Console.WriteLine($"Welcome to LegalX system!\nPlease provide your username:");
+            Console.WriteLine("Please provide your username:");
             string usernameInput = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(usernameInput))
+            {
+                Console.WriteLine("Username can't be empty! Please provide your username:");
+                usernameInput = Console.ReadLine();
+            }
 
             Console.WriteLine("Please provide your password:");
             string passwordInput = Console.ReadLine();
+
+            while (string.IsNullOrEmpty(passwordInput))
+            {
+                Console.WriteLine("Password can't be empty! Please provide your password:");
+                passwordInput = Console.ReadLine();
+            }
+
 
             if (usernameInput == "a" && passwordInput == "a")
             { return true; }
@@ -99,10 +115,11 @@ namespace ExamProject
         //initial menu
         private void DisplayMainMenu()
         {
-            Console.WriteLine("Your role in the LegalX company:");
+            Console.WriteLine("What is your role in the company:");
             Console.WriteLine("1. Lawyer");
             Console.WriteLine("2. Administrator");
             Console.WriteLine("3. Receptionist");
+
         }
 
 
@@ -118,17 +135,32 @@ namespace ExamProject
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine("Choose action (Lawyer)\n1. List all cases\n2. Add a new Case\n3. List all Appointements");
-                        int LawyerChoice  = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
-                        if (LawyerChoice == 1) { ListAllCases(); }
-                        else if (LawyerChoice == 2) { AddNewCase(); }
-                        else if (LawyerChoice == 3) { ListAllApppointments(); }
+                        Console.WriteLine("Choose action (lawyer)\n1. List all cases\n2. Add a new Case\n3. List all Appointements");
+
+                        int lawyerChoice;
+
+                        //validation of LawyerChoice for input as integer
+
+                        bool valid1; //which is false by default
+                        do { valid1 = int.TryParse(Console.ReadLine(), out lawyerChoice); }
+                        while (!valid1);
+
+                        if (lawyerChoice == 1) { ListAllCases(); }
+                        else if (lawyerChoice == 2) { AddNewCase(); }
+                        else if (lawyerChoice == 3) { ListAllApppointments(); }
                         else { break; }
                         break;
 
                     case 2:
                         Console.WriteLine("Choose action (admin)\n1. List all cases\n2. List all Appointements");
-                        int adminChoice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
+                        int adminChoice;
+
+                        //validation of adminChoice for input as integer
+
+                        bool valid2; //which is false by default
+                        do { valid2 = int.TryParse(Console.ReadLine(), out adminChoice); }
+                        while (!valid2);
+
                         if (adminChoice == 1) { ListAllCases(); }
                         else if (adminChoice == 2) { ListAllApppointments(); }
                         else { break; }
@@ -136,7 +168,14 @@ namespace ExamProject
 
                     case 3:
                         Console.WriteLine("Choose action (Receptionist)\n1. Register a new client\n2. Add a new Appointemnt\n3. List all Appointments\n4. List all Clients");
-                        int receptionChoice = int.Parse(Console.ReadLine()); //needs error handliing in case of string entry
+
+                        //validation of receptionChoice for input as integer
+                        int receptionChoice;
+                        bool valid3; //which is false by default
+                        do { valid3 = int.TryParse(Console.ReadLine(), out receptionChoice); }
+                        while (!valid3);
+
+
                         if (receptionChoice == 1) { AddNewClient(); }
                         else if (receptionChoice == 2) { AddNewAppointment(); }
                         else if (receptionChoice == 3) { ListAllApppointments(); }
@@ -145,14 +184,14 @@ namespace ExamProject
                         break;
 
                     default:
-                        Console.WriteLine("Invalid command. Make the right choice!");
+                        Console.WriteLine("Can not find this role. Make your choice again!");
                         return;
                 }
             }
 
         }
 
-      
+
 
         //**********************
         //       METHODS
@@ -161,7 +200,8 @@ namespace ExamProject
         public void AddNewClient()
         {
             Client client = new Client();
-            Console.WriteLine("Creating new client");
+            Console.WriteLine("Creating a new client");
+            Console.WriteLine("***********");
             Console.WriteLine("Client ID:");
             client.ClientId = int.Parse(Console.ReadLine());
             Console.WriteLine("First name:");
@@ -189,7 +229,7 @@ namespace ExamProject
             else
                 client.CaseType = ECaseType.Unknown;
             clients.Add(client);
-            Console.WriteLine("New client's record is created");
+            Console.WriteLine("New client's record is created:");
             Console.WriteLine(client.ShowInfo());
         }
 
@@ -213,32 +253,41 @@ namespace ExamProject
 
         private void ListAllApppointments()
         {
-            foreach (Appointment c in appointments)
+           
+            if (appointments.Any()) //using system.LINQ and checking if objects exist in the list
             {
-                Console.WriteLine(c.ShowInfo());
+                foreach (Appointment c in appointments)
+                {
+                    Console.WriteLine(c.ShowInfo());
+                }
             }
+            else { Console.WriteLine("No appointments planned\n********************"); }
         }
 
         private void AddNewCase()
         {
-            Console.WriteLine("Creating new case");
+            Console.WriteLine("Creating a new Case");
             Console.WriteLine("Tested: case created");
         }
 
         private void ListAllCases()
         {
-
-            foreach (Case c in cases)
+            if (cases.Any()) //using system.LINQ and checking if objects exist in the list
             {
-                Console.WriteLine(c.ShowInfo());
+                foreach (Case c in cases)
+                {
+                    Console.WriteLine(c.ShowInfo());
+                }
             }
+            else { Console.WriteLine("No cases are found in the system\n********************"); }
+                
         }
 
 
         private void AddNewAppointment()
         {
-           
-            Console.WriteLine("Creating new appointment");
+
+            Console.WriteLine("Creating a new Appointment");
 
             Console.WriteLine("Existing Client? (Y or N)");
 
@@ -248,28 +297,37 @@ namespace ExamProject
             {
                 Appointment appointment = new Appointment();
 
-                Console.WriteLine("Enter Client's ID:");
+                Console.WriteLine("Enter client's ID:");
                 int clientId = int.Parse(Console.ReadLine());
+                Client i = clients.Find(x => x.ClientId == clientId);
+                appointment.ClientId = i.ClientId;
+                Console.WriteLine($"Info about the client:\n{i.ShowShortInfo()}");
 
-                Console.WriteLine("Enter Lawyers Last name:");
+
+                Console.WriteLine("List of lawyers with the requested expertise:");
+
+                List<Lawyer> foundLawyers = lawyers.FindAll(x => x.Expertise == i.CaseType);
+
+                foreach (Lawyer l in foundLawyers)
+                {
+                    Console.WriteLine(l.ShowInfo());
+                }
+
+                Console.WriteLine("Assign the lawyer by entering Laywer's Last name:");
                 string lawyerAssigned = Console.ReadLine().ToLower();
 
-                //here one can also check lawyer for expertise
-
-                Client i = clients.Find(x=>x.ClientId == clientId);
-                appointment.ClientId = i.ClientId;
 
                 Lawyer s = lawyers.Find(x => x.Lastname.ToLower() == lawyerAssigned);
-
                 appointment.LawyerId = s.EmpId;
 
-         
 
                 Console.WriteLine("Appointment ID:");
                 appointment.AppId = int.Parse(Console.ReadLine());
 
                 Console.WriteLine("Appointment's date (dd-MM-yyyy):");
                 appointment.AppointmentDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
+                Console.WriteLine("Appointment's time (HH:mm):");
+                appointment.AppointmentDate = DateTime.ParseExact(Console.ReadLine(), "HH:mm", null);
 
 
                 Console.WriteLine("Choose room:");
@@ -288,12 +346,13 @@ namespace ExamProject
 
                 Console.WriteLine("New appointment is created:");
                 Console.WriteLine($"Client: {i.Firstname} {i.Lastname} living in {i.City} (case: {i.CaseType} law)");
-                Console.WriteLine($"Lawyer assigned: {s.Firstname} {s.Lastname} specialised in {s.Expertise} law and with seniority {s.Seniority}");
-                Console.WriteLine($"Date: {appointment.AppointmentDate.ToShortDateString()}");
+                Console.WriteLine($"Lawyer assigned: {s.Firstname} {s.Lastname} specialised in {s.Expertise} law and with seniority as {s.Seniority}");
+                Console.WriteLine($"Date of appointment: {appointment.AppointmentDate.ToShortDateString()}");
+                Console.WriteLine($"Time of appointment: {appointment.AppointmentTime.ToShortTimeString()}");
 
             }
 
-            else {AddNewClient();}
+            else { AddNewClient(); }
 
         }
 
