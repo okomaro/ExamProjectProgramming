@@ -10,9 +10,7 @@ namespace ExamProject
             Console.WriteLine("Welcome to LegalX!");
 
             Processor p = new Processor();
-               p.EntrySystem() ;
-           
-
+               p.EntrySystem();
 
         }
     }
