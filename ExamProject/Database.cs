@@ -8,9 +8,9 @@ namespace ExamProject
     //general info about every person:
     //Id, Firstname, Lastname, DOB, JoinedOn
 
-    public abstract class Person
+    public abstract class Employer
     {
-        public int Id { get; set; }
+        public int EmpId { get; set; }
         public string Firstname { get; set; }
         public string Lastname { get; set; }
         public DateTime DOB { get; set; }
@@ -26,7 +26,7 @@ namespace ExamProject
     // Lawer: child class 
     // additional info about lawers: Seniority and Expertise
 
-    public class Lawer : Person
+    public class Lawyer : Employer
     {
         public ESeniority Seniority { get; set; }
         public ECaseType Expertise { get; set; }
@@ -34,7 +34,7 @@ namespace ExamProject
         public override string ShowInfo()
         {
             StringBuilder textResult = new StringBuilder();
-            textResult.AppendLine($"*** Lawer Id: {Id} ***");
+            textResult.AppendLine($"*** Lawyer Id: {EmpId} ***");
             textResult.AppendLine($"Name: {Firstname} {Lastname}");
             textResult.AppendLine($"Seniority: {Seniority} level");
             textResult.AppendLine($"Expertise: {Expertise} law");
@@ -47,26 +47,26 @@ namespace ExamProject
     // Administration: child class 
     // additional info: role in the company
 
-    public class Administration : Person
+    public class Administration : Employer
     {
         public ERole Role { get; set; }
 
         public override string ShowInfo()
         {
-            throw new NotImplementedException();
+            return "Nothing here";
         }
     }
 
 
     // Receptionist: child class 
-    public class Reception : Person
+    public class Reception : Employer
     {
         public override string ShowInfo()
         {
             StringBuilder textResult = new StringBuilder();
-            textResult.AppendLine($"*** Receptionist Id: {Id} ***");
+            textResult.AppendLine($"*** Receptionist Id: {EmpId} ***");
             textResult.AppendLine($"Name: {Firstname} {Lastname}");
-            textResult.AppendLine($"Dob: {DOB.ToString("dd/MM/yyyy")}");
+            textResult.AppendLine($"Dob: {DOB.ToShortDateString()}");
             return textResult.ToString();
         }
     }
@@ -87,6 +87,7 @@ namespace ExamProject
         public int Zip { get; set; }
         public ECaseType CaseType { get; set; }
 
+
         public virtual string ShowInfo()
         {
             StringBuilder textResult = new StringBuilder();
@@ -100,28 +101,29 @@ namespace ExamProject
         }
     }
 
+
+
     // Appointment: inheritance from Client 
     //general info about an appointment:
     //Id, ClientId, LawyerId, Datetime, MeetingRoom
 
-    public class Appointment : Client
+    public class Appointment
     {
         public int AppId { get; set; }
         public DateTime AppointmentDate { get; set; }
         public ERooms MeetingRoom { get; set; }
+        public int ClientId { get ; set ; }
         public int LawyerId { get; set; }
 
-        public override string ShowInfo()
+        public  string ShowInfo()
         {
             StringBuilder textResult = new StringBuilder();
-            textResult.AppendLine($"*** Appointment Id: {AppId} ***");
-            textResult.AppendLine($"Date: {AppointmentDate}");
+            textResult.AppendLine($"Appointment Id: {AppId}");
+            textResult.AppendLine($"Date: {AppointmentDate.ToShortDateString()}");
             textResult.AppendLine($"Room: {MeetingRoom}");
-            textResult.AppendLine($"Lawer: {LawyerId}"); //think it over
-            textResult.AppendLine($"*** Client's info: ***");
-            textResult.AppendLine(base.ShowInfo());
-            textResult.AppendLine($"Case type: {CaseType} law");
-            textResult.AppendLine("*** ******** ***");
+            textResult.AppendLine($"Lawer: {LawyerId}"); 
+            textResult.AppendLine($"Client: {ClientId}"); 
+            textResult.AppendLine("*************************");
 
             return textResult.ToString();
         }
@@ -129,16 +131,42 @@ namespace ExamProject
     }
 
 
-    // Case: inheritance from Lawer 
+    // Case:
     //general info about an case:
-    //Id, IdCustomer, Casetype(Corporate, Family or Criminal), Startdate, TotalCharges, LawyerId (id from parent)
+    //Id, IdCustomer, Casetype(Corporate, Family or Criminal), Startdate, TotalCharges, 
 
-    public class Case : Lawer
+    public class Case
     {
         public int IdCase { get; set; }
         public ECaseType CaseType { get; set; }
         public DateTime StartDate { get; set; }
-        public int IdCustomer { get; set; }
+        
         public int TotalCharges { get; set; }
+
+        public int LawyerId { get; set; }
+        public int ClientId { get; set; }
+
+
+        public string ShowInfo()
+        {
+            StringBuilder textResult = new StringBuilder();
+            textResult.AppendLine($"*** Case Id: {IdCase} ***");
+            textResult.AppendLine($"Start Date: {StartDate}");
+            textResult.AppendLine($"Total charges: {TotalCharges}");
+
+            textResult.AppendLine($"*** Case's info: ***");
+
+            textResult.AppendLine($"Lawer: {LawyerId}");
+            textResult.AppendLine($"Client: {ClientId}");
+
+          
+
+
+            textResult.AppendLine("*** ******** ***");
+
+            return textResult.ToString();
+        }
     }
+
+
 }
