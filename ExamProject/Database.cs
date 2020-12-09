@@ -8,7 +8,7 @@ namespace ExamProject
     //general info about every person:
     //Id, Firstname, Lastname, DOB, JoinedOn
 
-    public abstract class Employer
+    public abstract class Employee
     {
         public int EmpId { get; set; }
         public string Firstname { get; set; }
@@ -26,7 +26,7 @@ namespace ExamProject
     // Lawer: child class 
     // additional info about lawers: Seniority and Expertise
 
-    public class Lawyer : Employer
+    public class Lawyer : Employee
     {
         public ESeniority Seniority { get; set; }
         public ECaseType Expertise { get; set; }
@@ -47,7 +47,7 @@ namespace ExamProject
     // Administration: child class 
     // additional info: role in the company
 
-    public class Administration : Employer
+    public class Administration : Employee
     {
         public ERole Role { get; set; }
 
@@ -59,7 +59,7 @@ namespace ExamProject
 
 
     // Receptionist: child class 
-    public class Reception : Employer
+    public class Reception : Employee
     {
         public override string ShowInfo()
         {
@@ -151,17 +151,10 @@ namespace ExamProject
         {
             StringBuilder textResult = new StringBuilder();
             textResult.AppendLine($"*** Case Id: {IdCase} ***");
-            textResult.AppendLine($"Start Date: {StartDate}");
+            textResult.AppendLine($"Start Date: {StartDate.ToShortDateString()}");
             textResult.AppendLine($"Total charges: {TotalCharges}");
-
-            textResult.AppendLine($"*** Case's info: ***");
-
-            textResult.AppendLine($"Lawer: {LawyerId}");
-            textResult.AppendLine($"Client: {ClientId}");
-
-          
-
-
+            textResult.AppendLine($"Lawyers ID: {LawyerId}");
+            textResult.AppendLine($"Clients ID: {ClientId}");
             textResult.AppendLine("*** ******** ***");
 
             return textResult.ToString();

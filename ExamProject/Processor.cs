@@ -19,13 +19,13 @@ namespace ExamProject
         //***************************
 
         List<Lawyer> lawyers = new List<Lawyer>() {
-        new Lawyer{EmpId = 1, Firstname = "Ivan", Lastname = "Ivanoff", Seniority = ESeniority.Senior, Expertise = ECaseType.Criminal, DOB = DateTime.ParseExact("09-09-1978","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-1978","dd-MM-yyyy", null)
+        new Lawyer{EmpId = 1, Firstname = "Ivan", Lastname = "Ivanov", Seniority = ESeniority.Senior, Expertise = ECaseType.Criminal, DOB = DateTime.ParseExact("09-09-1978","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-1978","dd-MM-yyyy", null)
 
         },
-         new Lawyer{EmpId = 2, Firstname = "Ignacio", Lastname = "rfr", Seniority= ESeniority.Junior, Expertise = ECaseType.Family, DOB = DateTime.ParseExact("03-06-1988","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-2020","dd-MM-yyyy", null)
+         new Lawyer{EmpId = 2, Firstname = "Ignacio", Lastname = "Holm", Seniority= ESeniority.Junior, Expertise = ECaseType.Family, DOB = DateTime.ParseExact("03-06-1988","dd-MM-yyyy", null), JoinedOn = DateTime.ParseExact("03-12-2020","dd-MM-yyyy", null)
 
         },
-        new Lawyer{EmpId = 3, Firstname = "Olga", Lastname = "Komarova", Seniority = ESeniority.Senior, Expertise = ECaseType.Criminal,
+        new Lawyer{EmpId = 3, Firstname = "Olga", Lastname = "Komarova", Seniority = ESeniority.Senior, Expertise = ECaseType.Criminal
         }
         };
 
@@ -45,13 +45,18 @@ namespace ExamProject
 
         };
 
+        List<Case> cases = new List<Case>() {
+        new Case { IdCase = 1, CaseType = ECaseType.Corporate, LawyerId = 1, ClientId = 3, StartDate = DateTime.ParseExact("18-12-2020","dd-MM-yyyy", null), TotalCharges = 20000  }
+
+        };
+
 
         //***************************
-        //    DATA ON OPERATIONS
+        //    DATA LISTS FOR OPERATIONS
         //***************************
 
         List<Appointment> appointments = new List<Appointment>();
-        List<Case> cases = new List<Case>();
+   
 
 
         //***************************
@@ -70,9 +75,7 @@ namespace ExamProject
             }
             else
             {
-
                 Console.WriteLine("Incorrect user or password. \nTry again!");
-                
             }
         }
 
@@ -81,7 +84,7 @@ namespace ExamProject
         private bool AuthenticateUser()
         {
             //prompting for the entries
-            Console.WriteLine($"You are entering LegalX system!\nPlease provide your username:");
+            Console.WriteLine($"Welcome to LegalX system!\nPlease provide your username:");
             string usernameInput = Console.ReadLine();
 
             Console.WriteLine("Please provide your password:");
@@ -218,7 +221,7 @@ namespace ExamProject
 
         private void AddNewCase()
         {
-          
+            Console.WriteLine("Creating new case");
             Console.WriteLine("Tested: case created");
         }
 
@@ -238,31 +241,34 @@ namespace ExamProject
             Console.WriteLine("Creating new appointment");
 
             Console.WriteLine("Existing Client? (Y or N)");
+
             string answer = Console.ReadLine().ToLower();
+
             if (answer == "y")
             {
-
                 Appointment appointment = new Appointment();
 
                 Console.WriteLine("Enter Client's ID:");
                 int clientId = int.Parse(Console.ReadLine());
-                Console.WriteLine("Enter Lawyers Last name:");
-                string lawyerAssigned = Console.ReadLine();
 
-                //here one can also check lawer for expertise
+                Console.WriteLine("Enter Lawyers Last name:");
+                string lawyerAssigned = Console.ReadLine().ToLower();
+
+                //here one can also check lawyer for expertise
 
                 Client i = clients.Find(x=>x.ClientId == clientId);
                 appointment.ClientId = i.ClientId;
 
-                Lawyer s = lawyers.Find(x => x.Lastname == lawyerAssigned);
+                Lawyer s = lawyers.Find(x => x.Lastname.ToLower() == lawyerAssigned);
+
                 appointment.LawyerId = s.EmpId;
 
-
+         
 
                 Console.WriteLine("Appointment ID:");
                 appointment.AppId = int.Parse(Console.ReadLine());
 
-                Console.WriteLine("Appointment's date:");
+                Console.WriteLine("Appointment's date (dd-MM-yyyy):");
                 appointment.AppointmentDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
 
 
@@ -281,8 +287,8 @@ namespace ExamProject
                 appointments.Add(appointment);
 
                 Console.WriteLine("New appointment is created:");
-                Console.WriteLine($"Client: {i.Firstname} {i.Lastname} (case: {i.CaseType} law)");
-                Console.WriteLine($"Lawyer assigned: {s.Firstname} {s.Lastname}");
+                Console.WriteLine($"Client: {i.Firstname} {i.Lastname} living in {i.City} (case: {i.CaseType} law)");
+                Console.WriteLine($"Lawyer assigned: {s.Firstname} {s.Lastname} specialised in {s.Expertise} law and with seniority {s.Seniority}");
                 Console.WriteLine($"Date: {appointment.AppointmentDate.ToShortDateString()}");
 
             }
