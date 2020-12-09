@@ -231,17 +231,10 @@ namespace ExamProject
             }
         }
 
-        //private  SearchByName(string name, List<Lawyer> Lawyers) {
-
-
-
-        //    return object;
-        //}
 
         private void AddNewAppointment()
         {
            
-
             Console.WriteLine("Creating new appointment");
 
             Console.WriteLine("Existing Client? (Y or N)");
@@ -297,32 +290,6 @@ namespace ExamProject
             else {AddNewClient();}
 
         }
-
-
-        //public List<Database> AddNewAppointment()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public List<Database> AddNewCase()
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-
-
-        //public List<Database> ListAppointments()
-        //{
-        //    StringBuilder result = new StringBuilder(); //using system.text
-
-        //    result.AppendLine("Here is the result list for All Appointments");
-
-        //    foreach (Database s in appointments)
-        //    {
-        //        result.AppendLine(s);
-        //    }
-        //}
-
 
 
 
