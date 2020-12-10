@@ -335,7 +335,13 @@ namespace ExamProject
             client.Zip = int.Parse(Console.ReadLine());
             Console.WriteLine("Type of case:");
             Console.WriteLine("1. Corporate law\n2.Family law\n3.Criminal law");
-            int caseType = int.Parse(Console.ReadLine());
+
+            // collecting answer from user and validation of input as integer
+            int caseType;
+            bool valid; //false by default
+            do { valid = int.TryParse(Console.ReadLine(), out caseType); }
+            while (!valid);
+
             if (caseType == 1)
                 client.CaseType = ECaseType.Corporate;
             else if (caseType == 2)
@@ -390,20 +396,39 @@ namespace ExamProject
 
             Console.WriteLine("Creating a new Case");
 
-            Console.WriteLine("Enter Lawyer ID:");
-            clientcase.LawyerId = int.Parse(Console.ReadLine());
+
+                Console.WriteLine("Enter Lawyer ID:");
+
+                // collecting answer from user and validation of input as integer
+                int idInput;
+                bool valid; //false by default
+                do { valid = int.TryParse(Console.ReadLine(), out idInput); }
+                while (!valid);
+
+                Lawyer l = FindLawyer(idInput);
+                if (l != null)
+                {
+                    clientcase.LawyerId = l.EmpId;
+                }
+                else { Console.WriteLine("The Lawyer does not exist"); }
+
 
 
             Console.WriteLine("Enter client's ID:");
-            int clientId = int.Parse(Console.ReadLine());
+
+            int clientId;
+            bool valid1; //false by default
+            do { valid1 = int.TryParse(Console.ReadLine(), out clientId); }
+            while (!valid1);
+          
             Client i = FindClient(clientId);
             clientcase.ClientId = i.ClientId;
             Console.WriteLine("***********************");
             Console.WriteLine($"Info about the client:\n{i.ShowShortInfo()}");
 
-            if (i.CaseType != FindLawyer(clientcase.LawyerId).Expertise)
+            if (i.CaseType != l.Expertise)
             {
-                Console.WriteLine($"Hello, {FindLawyer(clientcase.LawyerId).Firstname} are you sure you have enough expertise for this? Better ask another collegue");
+                Console.WriteLine($"Hello, {l.Firstname} are you sure you have enough expertise for this? Better ask another collegue");
 
 
             }
@@ -446,8 +471,10 @@ namespace ExamProject
 
         public Client FindClient(int clientId)
         {
+
             var clientObj = clients.Find(x => x.ClientId == clientId);
             return clientObj;
+    
         }
 
         public Lawyer FindLawyer(int empId)
