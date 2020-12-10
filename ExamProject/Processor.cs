@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Text;
 using System.Linq;
 
 
@@ -46,8 +46,8 @@ namespace ExamProject
 
         };
 
-        List<Case> cases = new List<Case>() {
-        new Case { IdCase = 1, CaseType = ECaseType.Corporate, LawyerId = 1, ClientId = 3, StartDate = DateTime.ParseExact("18-12-2020","dd-MM-yyyy", null), TotalCharges = 20000  }
+        List<Clientcase> cases = new List<Clientcase>() {
+        new Clientcase { IdCase = 1, CaseType = ECaseType.Corporate, LawyerId = 1, ClientId = 3, StartDate = DateTime.ParseExact("18-12-2020","dd-MM-yyyy", null), TotalCharges = 20000  }
 
         };
 
@@ -90,6 +90,7 @@ namespace ExamProject
             Console.WriteLine("Please provide your username:");
             string usernameInput = Console.ReadLine();
 
+            //validation 
             while (string.IsNullOrEmpty(usernameInput))
             {
                 Console.WriteLine("Username can't be empty! Please provide your username:");
@@ -141,7 +142,8 @@ namespace ExamProject
 
                         //validation of LawyerChoice for input as integer
 
-                        bool valid1; //which is false by default
+                        bool valid1; //false by default
+
                         do { valid1 = int.TryParse(Console.ReadLine(), out lawyerChoice); }
                         while (!valid1);
 
@@ -200,7 +202,7 @@ namespace ExamProject
         public void AddNewClient()
         {
             Client client = new Client();
-            Console.WriteLine("Creating a new client");
+            Console.WriteLine("Creating a New Client");
             Console.WriteLine("***********");
             Console.WriteLine("Client ID:");
             client.ClientId = int.Parse(Console.ReadLine());
@@ -229,7 +231,7 @@ namespace ExamProject
             else
                 client.CaseType = ECaseType.Unknown;
             clients.Add(client);
-            Console.WriteLine("New client's record is created:");
+            Console.WriteLine("New Client's record is created:");
             Console.WriteLine(client.ShowInfo());
         }
 
@@ -253,8 +255,8 @@ namespace ExamProject
 
         private void ListAllApppointments()
         {
-           
-            if (appointments.Any()) //using system.LINQ and checking if objects exist in the list
+
+            if (appointments.Any()) //using system.LINQ library which has a method of checking if objects exist in the list
             {
                 foreach (Appointment c in appointments)
                 {
@@ -264,23 +266,77 @@ namespace ExamProject
             else { Console.WriteLine("No appointments planned\n********************"); }
         }
 
+        
+
+
         private void AddNewCase()
+
         {
+
+            Clientcase clientcase = new Clientcase();
+
             Console.WriteLine("Creating a new Case");
-            Console.WriteLine("Tested: case created");
+
+            Console.WriteLine("Enter Case ID:");
+
+            clientcase.IdCase = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Choose Case type:");
+
+            Console.WriteLine("1. Corporate\n2. Family\n3. Criminal");
+
+            int caseType = int.Parse(Console.ReadLine());
+
+            if (caseType == 1)
+
+                clientcase.CaseType = ECaseType.Corporate;
+
+            else if (caseType == 2)
+
+                clientcase.CaseType = ECaseType.Family;
+
+            else if (caseType == 3)
+
+                clientcase.CaseType = ECaseType.Criminal;
+
+            Console.WriteLine("Enter Starting date:");
+
+            clientcase.StartDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
+
+
+            Console.WriteLine("Enter Client ID:");
+
+            clientcase.ClientId = int.Parse(Console.ReadLine());
+
+
+            Console.WriteLine("Enter Lawyer ID:");
+
+            clientcase.LawyerId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter the total charge of customer:");
+
+            clientcase.TotalCharges = int.Parse(Console.ReadLine());
+
+
+            Console.WriteLine(clientcase.ShowInfo());
+
+            cases.Add(clientcase);
+
         }
+
+
 
         private void ListAllCases()
         {
-            if (cases.Any()) //using system.LINQ and checking if objects exist in the list
+            if (cases.Any()) //using system.LINQ library which has a method of checking if objects exist in the list
             {
-                foreach (Case c in cases)
+                foreach (Clientcase c in cases)
                 {
                     Console.WriteLine(c.ShowInfo());
                 }
             }
             else { Console.WriteLine("No cases are found in the system\n********************"); }
-                
+
         }
 
 
@@ -301,10 +357,11 @@ namespace ExamProject
                 int clientId = int.Parse(Console.ReadLine());
                 Client i = clients.Find(x => x.ClientId == clientId);
                 appointment.ClientId = i.ClientId;
+                Console.WriteLine("***********************");
                 Console.WriteLine($"Info about the client:\n{i.ShowShortInfo()}");
 
-
-                Console.WriteLine("List of lawyers with the requested expertise:");
+                Console.WriteLine("***********************");
+                Console.WriteLine("List of lawyers with the matching expertise:");
 
                 List<Lawyer> foundLawyers = lawyers.FindAll(x => x.Expertise == i.CaseType);
 
@@ -345,7 +402,7 @@ namespace ExamProject
                 appointments.Add(appointment);
 
                 Console.WriteLine("New appointment is created:");
-                Console.WriteLine($"Client: {i.Firstname} {i.Lastname} living in {i.City} (case: {i.CaseType} law)");
+                Console.WriteLine($"Client: {i.Firstname} {i.Lastname} from {i.City} (case: {i.CaseType} law)");
                 Console.WriteLine($"Lawyer assigned: {s.Firstname} {s.Lastname} specialised in {s.Expertise} law and with seniority as {s.Seniority}");
                 Console.WriteLine($"Date of appointment: {appointment.AppointmentDate.ToShortDateString()}");
                 Console.WriteLine($"Time of appointment: {appointment.AppointmentTime.ToShortTimeString()}");

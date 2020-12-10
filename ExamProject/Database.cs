@@ -146,7 +146,7 @@ namespace ExamProject
     //general info about an case:
     //Id, IdCustomer, Casetype(Corporate, Family or Criminal), Startdate, TotalCharges, 
 
-    public class Case
+    public class Clientcase
     {
         public int IdCase { get; set; }
         public ECaseType CaseType { get; set; }
