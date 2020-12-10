@@ -132,8 +132,8 @@ namespace ExamProject
             textResult.AppendLine($"Date: {AppointmentDate.ToShortDateString()}");
             textResult.AppendLine($"Time: {AppointmentTime.ToShortTimeString()}");
             textResult.AppendLine($"Room: {MeetingRoom}");
-            textResult.AppendLine($"Lawer: {LawyerId}"); 
-            textResult.AppendLine($"Client: {ClientId}"); 
+            textResult.AppendLine($"Lawyer's ID: {LawyerId}");
+            textResult.AppendLine($"Client's ID: {ClientId}");
             textResult.AppendLine("*************************");
 
             return textResult.ToString();

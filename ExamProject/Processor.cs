@@ -65,14 +65,14 @@ namespace ExamProject
             while (true)
             {
                 DisplayMainMenu();
-                int choice;
+                int choiceRole;
                 bool valid; //which is false by default
-                do { valid = int.TryParse(Console.ReadLine(), out choice); }
+                do { valid = int.TryParse(Console.ReadLine(), out choiceRole); }
                 while (!valid);
 
                 if (AuthenticateUser())  //same as ==true
                 {
-                    ShowMenuOption(choice);
+                    ShowMenuOption(choiceRole);
                 }
                 else
                 {
@@ -129,69 +129,183 @@ namespace ExamProject
         // menu options depending on role
         //************************
 
-        private void ShowMenuOption(int choice)
+        //new menu via if esle
+
+        private void ShowMenuOption(int choiceRole)
         {
             while (true)
             {
-                switch (choice)
+                if (choiceRole == 1)
                 {
-                    case 1:
-                        Console.WriteLine("Choose action (lawyer)\n1. List all cases\n2. Add a new Case\n3. List all Appointements");
+                    Console.WriteLine("Choose action (lawyer)\n1. List all cases\n2. Add a new Case\n3. List all Appointements");
 
-                        int lawyerChoice;
+                    int choiceMenu;
 
-                        //validation of LawyerChoice for input as integer
+                    //validation of input as integer
 
-                        bool valid1; //false by default
+                    bool valid1; //false by default
 
-                        do { valid1 = int.TryParse(Console.ReadLine(), out lawyerChoice); }
-                        while (!valid1);
+                    do { valid1 = int.TryParse(Console.ReadLine(), out choiceMenu); }
+                    while (!valid1);
 
-                        if (lawyerChoice == 1) { ListAllCases(); }
-                        else if (lawyerChoice == 2) { AddNewCase(); }
-                        else if (lawyerChoice == 3) { ListAllApppointments(); }
-                        else { break; }
-                        break;
+                    switch (choiceMenu)
+                    {
+                        case 1:
+                            ListAllCases();
+                            break;
 
-                    case 2:
-                        Console.WriteLine("Choose action (admin)\n1. List all cases\n2. List all Appointements");
-                        int adminChoice;
+                        case 2:
+                            AddNewCase();
+                            break;
 
-                        //validation of adminChoice for input as integer
+                        case 3:
+                            ListAllApppointments();
+                            break;
 
-                        bool valid2; //which is false by default
-                        do { valid2 = int.TryParse(Console.ReadLine(), out adminChoice); }
-                        while (!valid2);
+                        default:
+                            Console.WriteLine("Choose an action from the menu");
+                            break;
+                    }
+                }
 
-                        if (adminChoice == 1) { ListAllCases(); }
-                        else if (adminChoice == 2) { ListAllApppointments(); }
-                        else { break; }
-                        break;
+                else if (choiceRole == 2)
+                {
+                    Console.WriteLine("Choose action (admin)\n1. List all cases\n2. List all Appointements");
 
-                    case 3:
-                        Console.WriteLine("Choose action (Receptionist)\n1. Register a new client\n2. Add a new Appointemnt\n3. List all Appointments\n4. List all Clients");
+                    int choiceMenu;
 
-                        //validation of receptionChoice for input as integer
-                        int receptionChoice;
-                        bool valid3; //which is false by default
-                        do { valid3 = int.TryParse(Console.ReadLine(), out receptionChoice); }
-                        while (!valid3);
+                    //validation of input as integer
+
+                    bool valid1; //false by default
+
+                    do { valid1 = int.TryParse(Console.ReadLine(), out choiceMenu); }
+                    while (!valid1);
+
+                    switch (choiceMenu)
+                    {
+                        case 1:
+                            ListAllCases();
+                            break;
+
+                        case 2:
+                            ListAllApppointments();
+                            break;
 
 
-                        if (receptionChoice == 1) { AddNewClient(); }
-                        else if (receptionChoice == 2) { AddNewAppointment(); }
-                        else if (receptionChoice == 3) { ListAllApppointments(); }
-                        else if (receptionChoice == 4) { ListAllClients(); }
-                        else { break; }
-                        break;
+                        default:
+                            Console.WriteLine("Choose an action from the menu");
+                            break;
+                    }
+                }
 
-                    default:
-                        Console.WriteLine("Can not find this role. Make your choice again!");
-                        return;
+                else if (choiceRole == 3)
+                {
+                    Console.WriteLine("Choose action (Receptionist)\n1. Register a new client\n2. Add a new Appointemnt\n3. List all Appointments\n4. List all Clients");
+
+                    int choiceMenu;
+
+                    //validation of input as integer
+
+                    bool valid1; //false by default
+
+                    do { valid1 = int.TryParse(Console.ReadLine(), out choiceMenu); }
+                    while (!valid1);
+
+                    switch (choiceMenu)
+                    {
+                        case 1:
+                            AddNewClient();
+                            break;
+                        case 2:
+                            AddNewAppointment();
+                            break;
+                        case 3:
+                            ListAllApppointments();
+                            break;
+                        case 4:
+                            ListAllClients();
+                            break;
+
+                        default:
+                            Console.WriteLine("Choose an action from the menu");
+                            break;
+                    }
+                }
+
+                else
+                {
+                    Console.WriteLine("Can not find this role. Make your choice again!");
                 }
             }
-
         }
+
+
+
+        //old menu via switch
+
+        //private void ShowMenuOption(int choice)
+        //{
+        //    while (true)
+        //    {
+        //        switch (choice)
+        //        {
+        //            case 1:
+        //                Console.WriteLine("Choose action (lawyer)\n1. List all cases\n2. Add a new Case\n3. List all Appointements");
+
+        //                int lawyerChoice;
+
+        //                //validation of LawyerChoice for input as integer
+
+        //                bool valid1; //false by default
+
+        //                do { valid1 = int.TryParse(Console.ReadLine(), out lawyerChoice); }
+        //                while (!valid1);
+
+        //                if (lawyerChoice == 1) { ListAllCases(); }
+        //                else if (lawyerChoice == 2) { AddNewCase(); }
+        //                else if (lawyerChoice == 3) { ListAllApppointments(); }
+        //                else { break; }
+        //                break;
+
+        //            case 2:
+        //                Console.WriteLine("Choose action (admin)\n1. List all cases\n2. List all Appointements");
+        //                int adminChoice;
+
+        //                //validation of adminChoice for input as integer
+
+        //                bool valid2; //which is false by default
+        //                do { valid2 = int.TryParse(Console.ReadLine(), out adminChoice); }
+        //                while (!valid2);
+
+        //                if (adminChoice == 1) { ListAllCases(); }
+        //                else if (adminChoice == 2) { ListAllApppointments(); }
+        //                else { break; }
+        //                break;
+
+        //            case 3:
+        //                Console.WriteLine("Choose action (Receptionist)\n1. Register a new client\n2. Add a new Appointemnt\n3. List all Appointments\n4. List all Clients");
+
+        //                //validation of receptionChoice for input as integer
+        //                int receptionChoice;
+        //                bool valid3; //which is false by default
+        //                do { valid3 = int.TryParse(Console.ReadLine(), out receptionChoice); }
+        //                while (!valid3);
+
+
+        //                if (receptionChoice == 1) { AddNewClient(); }
+        //                else if (receptionChoice == 2) { AddNewAppointment(); }
+        //                else if (receptionChoice == 3) { ListAllApppointments(); }
+        //                else if (receptionChoice == 4) { ListAllClients(); }
+        //                else { break; }
+        //                break;
+
+        //            default:
+        //                Console.WriteLine("Can not find this role. Make your choice again!");
+        //                return;
+        //        }
+        //    }
+
+        //}
 
 
 
@@ -272,55 +386,44 @@ namespace ExamProject
         private void AddNewCase()
 
         {
-
             Clientcase clientcase = new Clientcase();
 
             Console.WriteLine("Creating a new Case");
 
-            Console.WriteLine("Enter Case ID:");
-
-            clientcase.IdCase = int.Parse(Console.ReadLine());
-
-            Console.WriteLine("Choose Case type:");
-
-            Console.WriteLine("1. Corporate\n2. Family\n3. Criminal");
-
-            int caseType = int.Parse(Console.ReadLine());
-
-            if (caseType == 1)
-
-                clientcase.CaseType = ECaseType.Corporate;
-
-            else if (caseType == 2)
-
-                clientcase.CaseType = ECaseType.Family;
-
-            else if (caseType == 3)
-
-                clientcase.CaseType = ECaseType.Criminal;
-
-            Console.WriteLine("Enter Starting date:");
-
-            clientcase.StartDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", null);
-
-
-            Console.WriteLine("Enter Client ID:");
-
-            clientcase.ClientId = int.Parse(Console.ReadLine());
-
-
             Console.WriteLine("Enter Lawyer ID:");
-
             clientcase.LawyerId = int.Parse(Console.ReadLine());
 
-            Console.WriteLine("Enter the total charge of customer:");
 
-            clientcase.TotalCharges = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter client's ID:");
+            int clientId = int.Parse(Console.ReadLine());
+            Client i = FindClient(clientId);
+            clientcase.ClientId = i.ClientId;
+            Console.WriteLine("***********************");
+            Console.WriteLine($"Info about the client:\n{i.ShowShortInfo()}");
+
+            if (i.CaseType != FindLawyer(clientcase.LawyerId).Expertise)
+            {
+                Console.WriteLine($"Hello, {FindLawyer(clientcase.LawyerId).Firstname} are you sure you have enough expertise for this? Better ask another collegue");
 
 
-            Console.WriteLine(clientcase.ShowInfo());
+            }
 
-            cases.Add(clientcase);
+            else {
+                clientcase.IdCase = i.ClientId;
+                Console.WriteLine($"Id Case: {clientcase.IdCase}");
+                clientcase.CaseType = i.CaseType;
+
+                clientcase.StartDate = DateTime.Now;
+
+                Console.WriteLine("Enter the total charge of customer:");
+                clientcase.TotalCharges = int.Parse(Console.ReadLine());
+
+                cases.Add(clientcase);
+
+                Console.WriteLine("New Case created:");
+                Console.WriteLine($"{clientcase.ShowInfo()}/nfor client {i.ShowShortInfo()}");
+            }
+
 
         }
 
@@ -340,6 +443,20 @@ namespace ExamProject
         }
 
 
+
+        public Client FindClient(int clientId)
+        {
+            var clientObj = clients.Find(x => x.ClientId == clientId);
+            return clientObj;
+        }
+
+        public Lawyer FindLawyer(int empId)
+        {
+            var lawyerObj = lawyers.Find(x => x.EmpId == empId);
+            return lawyerObj;
+        }
+
+
         private void AddNewAppointment()
         {
 
@@ -355,7 +472,7 @@ namespace ExamProject
 
                 Console.WriteLine("Enter client's ID:");
                 int clientId = int.Parse(Console.ReadLine());
-                Client i = clients.Find(x => x.ClientId == clientId);
+                Client i = FindClient(clientId);
                 appointment.ClientId = i.ClientId;
                 Console.WriteLine("***********************");
                 Console.WriteLine($"Info about the client:\n{i.ShowShortInfo()}");
