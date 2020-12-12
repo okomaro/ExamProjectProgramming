@@ -3,7 +3,12 @@ namespace ExamProject
 {
     public enum ERole
     {
-        Unknown = 0, Lawer = 1, Administration = 2, Reception = 3
+        Unknown = 0, Lawyer = 1, Administration = 2, Reception = 3
+    }
+
+    public enum EAdminRole
+    {
+        Unknown = 0, Finances = 1, IT = 2, Support = 3
     }
 
     public enum ESeniority
