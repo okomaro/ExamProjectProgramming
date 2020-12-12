@@ -116,13 +116,19 @@ namespace ExamProject
         }
     }
 
+    //Interface to make sure the connection between case and appointment with lawyer and client
 
+    interface IConnection
+    {
+        public int LawyerId { get; set; }
+        public int ClientId { get; set; }
+    }
 
     // Appointment
     //general info about an appointment:
     //Id, ClientId, LawyerId, Datetime, MeetingRoom
 
-    public class Appointment
+    public class Appointment : IConnection
     {
         public int AppId { get; set; }
         public DateTime AppointmentDate { get; set; }
@@ -148,11 +154,12 @@ namespace ExamProject
     }
 
 
+
     // Case:
     //general info about an case:
     //Id, IdCustomer, Casetype(Corporate, Family or Criminal), Startdate, TotalCharges, 
 
-    public class Clientcase
+    public class Clientcase : IConnection
     {
         public int IdCase { get; set; }
         public ECaseType CaseType { get; set; }
