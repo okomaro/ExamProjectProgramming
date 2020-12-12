@@ -5,8 +5,10 @@ using System.Text;
 
 namespace ExamProject
 {
+    //Base class
 
-    //general info about every person:
+    //general info about every employee:
+
     //Id, Firstname, Lastname, DOB, JoinedOn
 
     public abstract class Employee
@@ -16,16 +18,20 @@ namespace ExamProject
         public string Lastname { get; set; }
         public DateTime DOB { get; set; }
         public DateTime JoinedOn { get; set; }
-
+        public ERole Role { get; set; }
         public abstract string ShowInfo();
+
+        //greeting user
+        public virtual void GreetEmployee()
+        { Console.WriteLine($"Hello {Firstname} {Lastname}!"); }
 
     }
 
 
-    //Inherited classes
+    // Derived classes
 
-    // Lawer: child class 
-    // additional info about lawers: Seniority and Expertise
+    // Lawyer: child class 
+    // additional info about lawyers: Seniority and Expertise
 
     public class Lawyer : Employee
     {
@@ -46,11 +52,11 @@ namespace ExamProject
 
 
     // Administration: child class 
-    // additional info: role in the company
+    // additional info: admin role in the company
 
     public class Administration : Employee
     {
-        public ERole Role { get; set; }
+        public EAdminRole AdminRole { get; set; }
 
         public override string ShowInfo()
         {
@@ -112,7 +118,7 @@ namespace ExamProject
 
 
 
-    // Appointment: inheritance from Client 
+    // Appointment
     //general info about an appointment:
     //Id, ClientId, LawyerId, Datetime, MeetingRoom
 

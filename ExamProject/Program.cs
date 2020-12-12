@@ -6,11 +6,18 @@ namespace ExamProject
     {
         public static void Main(string[] args)
         {
+            //exception handling
+
             try
             {
                 Console.WriteLine("Welcome to LegalX!");
                 Processor p = new Processor();
                 p.EntrySystem();
+           
+         
+
+
+
             }
 
             catch (Exception ex)
