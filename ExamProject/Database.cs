@@ -120,8 +120,8 @@ namespace ExamProject
 
     interface IConnection
     {
-        public int LawyerId { get; set; }
-        public int ClientId { get; set; }
+         int LawyerId { get; set; }
+         int ClientId { get; set; }
     }
 
     // Appointment
