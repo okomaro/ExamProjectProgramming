@@ -9,7 +9,8 @@ namespace ExamProject
     public class Processor
     {
 
-        //Lists of objects to store all info about human resources and clients, as well as their appointments in the code
+        //Lists of objects to store all data objects
+        //about human resources and clients, as well as their operations 
 
         //***************************
         //        DATA LISTS
@@ -137,7 +138,7 @@ namespace ExamProject
         }
 
 
-        // method to validate user login
+        // method to validate user credentials
 
         private bool AuthenticateUser()
         {
@@ -185,7 +186,8 @@ namespace ExamProject
         // menu options depending on role
         //************************
 
-        // user menu (built via if-esle statement, repeated inside the loop while depending on the initial choice of choiceRole)
+        // user menu built via if-esle statement,
+        // repeated inside the loop while depending on the initial choice of choiceRole
 
         private void ShowMenuOption(int choiceRole)
         {
@@ -295,7 +297,6 @@ namespace ExamProject
                 }
             }
         }
-
 
         //**********************
         //       METHODS
@@ -436,7 +437,7 @@ namespace ExamProject
 
         private void ListAllCases()
         {
-            if (cases.Any()) //using system.LINQ library which has a method of checking if objects exist in the list through operator Any, returns bool
+            if (cases.Any()) //using LINQ library which has a method of checking if objects exist in the list through operator Any, returns bool
             {
                 foreach (Clientcase c in cases)
                 {
@@ -520,16 +521,22 @@ namespace ExamProject
             else { AddNewClient(); }
         }
 
-        //helping search functions
+
+        //**********************
+        //   HELPING METHODS
+        //**********************
+        // to search objects in lists
+        // lambda expression from LINQ library used
+
         private Client FindClient(int clientId)
         {
-            var clientObj = clients.Find(x => x.ClientId == clientId); // Lambda operator
+            var clientObj = clients.Find(x => x.ClientId == clientId); 
             return clientObj;
         }
 
         private Lawyer FindLawyer(int empId)
         {
-            var lawyerObj = lawyers.Find(x => x.EmpId == empId);
+            var lawyerObj = lawyers.Find(x => x.EmpId == empId); 
             return lawyerObj;
         }
     }
